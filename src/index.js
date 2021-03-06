@@ -33,7 +33,7 @@ for (const folder of commandFolders) {
 // Zdarzenie: gdy bot stanie się online
 client.once("ready", () => {
   console.log(`Zalogowano jako ${client.user.tag}`);
-  client.user.setActivity("😎🤙", { type: "WATCHING" });
+  client.user.setActivity(botStatus.status, botStatus.type);
 });
 
 client.on("message", (message) => {
