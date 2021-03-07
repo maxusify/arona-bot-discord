@@ -3,6 +3,6 @@ module.exports = {
   description: "Ping! Command.",
   args: false,
   execute(message, args) {
-    message.channel.send("Pong!");
+    message.channel.send("Pong! 😎👍");
   },
 };
