@@ -1,3 +1,5 @@
+const ytdl = require("ytdl-core");
+
 module.exports = {
   name: "play",
   aliases: ["p", "pl"],
@@ -7,6 +9,17 @@ module.exports = {
   guildOnly: true,
   cooldown: 5,
   execute(message, args) {
-    message.reply("działa 😎👍");
+    if (
+      message.member.voice.channel &&
+      args[0].startsWith("https://www.youtube") // TODO: Poprawić sprawdzanie adresu
+    ) {
+      message.member.voice.channel.join().then((connection) => {
+        const stream = ytdl(args[0], { filter: "audioonly" });
+
+        const dispatcher = connection.play(stream);
+
+        dispatcher.on("finish", () => message.member.voice.channel.leave());
+      });
+    }
   },
 };

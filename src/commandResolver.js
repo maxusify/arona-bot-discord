@@ -70,7 +70,6 @@ module.exports = {
     // Wykonanie komendy
     try {
       command.execute(message, args);
-      console.log(`Użyto: ${command.name} ${args}`);
     } catch (err) {
       console.error(err);
       message.reply("Wystąpił!");
