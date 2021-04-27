@@ -72,7 +72,7 @@ module.exports = {
       command.execute(message, args);
     } catch (err) {
       console.error(err);
-      message.reply("Wystąpił!");
+      message.reply("Wystąpił błąd!");
     }
   },
 };
