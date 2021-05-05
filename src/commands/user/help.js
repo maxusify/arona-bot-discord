@@ -1,4 +1,8 @@
 const { prefix } = require("../../../config.json");
+const {
+  helpEmbed,
+  helpEmbedCommandDoesntExist,
+} = require("../../templates/helpTemplates");
 
 module.exports = {
   name: "help",
@@ -9,8 +13,6 @@ module.exports = {
   guildOnly: false,
   cooldown: 0,
   execute(message, args) {
-    // message.reply("działa 😎👍");
-
     const data = [];
     const { commands } = message.client;
 
@@ -21,8 +23,10 @@ module.exports = {
         `Możesz użyć *${prefix}help <nazwa komendy>* aby zobaczyć informacje o danej komendzie.`
       );
 
+      helpEmbed.description = data.toString;
+
       return message.author
-        .send(data, { split: true })
+        .send({ content: "Oto twoja pomoc sensei~", embed: helpEmbed })
         .then(() => {
           if (message.channel.type === "dm") return;
           message.reply("zobacz pomoc w wiadomości prywatnej 😎👍");
@@ -43,9 +47,7 @@ module.exports = {
         commands.find((c) => c.aliases && c.aliases.includes(name));
 
       if (!command) {
-        return message.reply(
-          "podana komenda nie istnieje lub wpisałeś ją błędnie."
-        );
+        return message.author.send(helpEmbedCommandDoesntExist);
       }
 
       data.push(`**Nazwa:** ${command.name}`);

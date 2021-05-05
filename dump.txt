@@ -1,0 +1,38 @@
+const key = process.env.YOUTUBE_API_KEY;
+      const connection = await message.member.voice.channel.join();
+      const vidID = await player.id(args, key);
+      const title = await player.title(args, key);
+      const thumbnail = await player.thumbnail(vidID);
+      const vidDesc = `https://youtube.com/watch?v=${vidID}`;
+      await player.play(connection, args, key);
+
+      /* EMBED - Odtwarzana piosenka */
+      const playEmbed = {
+        color: 0x00ff80,
+        author: {
+          name: "Arona Music Player",
+          icon_url: "https://i.imgur.com/RoAOjbl.png",
+        },
+        title: `${title}`,
+        description: `${vidDesc}`,
+        // image: {
+        //   url: `${thumbnail}`,
+        // },
+        thumbnail: {
+          url: `${thumbnail}`,
+        },
+        fields: [
+          {
+            name: "Długość",
+            value: ``,
+          },
+        ],
+        timestamp: new Date(),
+        footer: {
+          text: `Zakolejkowane przez - ${message.author.tag}`,
+          icon_url: message.author.avatarURL(),
+        },
+      };
+
+      console.log(playEmbed);
+      message.channel.send({ embed: playEmbed });
